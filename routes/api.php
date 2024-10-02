@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\ScategorieController;
+use App\Http\Controllers\ArticleController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -19,4 +20,8 @@ Route::delete('/categories/{id}', [CategorieController::class, "destroy"]);*/
 Route::middleware('api')->group(function () {
     Route::resource('scategories', ScategorieController::class);
     });
-
+    Route::middleware('api')->group(function () {
+        Route::resource('articles', ArticleController::class);
+        });
+        Route::get('/listarticles/{idscat}', [ArticleController::class,'showArticlesBySCAT']);
+        Route::get('/articles/art/articlespaginate', [ArticleController::class,'articlesPaginate']);
